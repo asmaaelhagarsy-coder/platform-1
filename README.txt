@@ -1,8 +1,11 @@
-Unit 1 · Split Mini Platform — Prepared by Asmaa Mahmoud Alhagrasy
+# Unit 1 · Lesson 1 — Mini Platform (Egypt's Heritage)
 
-Files included:
-- home.html (Design shell + tabs)
-- lesson1.html, lesson2.html, lesson3.html, lesson4.html
-- exam.html
+This folder contains a single `index.html` that runs **offline** in any modern browser on phone or PC.
 
-To publish: rename home.html to index.html and upload all files to repo root, then enable GitHub Pages (main/root).
+## How to publish on GitHub Pages
+1. Create a new repo, e.g., `unit1-lesson1`.
+2. Upload `index.html` to the root of the repo.
+3. In **Settings → Pages**, choose `Deploy from a branch` and select `main` (root).
+4. Your link will look like: `https://<username>.github.io/unit1-lesson1/`.
+
+Voice uses the browser Speech Synthesis (en-GB). If your device has a British English voice installed, it will be selected automatically.
