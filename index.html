@@ -1,342 +1,426 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unit 1 · Lesson 1 — Egypt's Heritage | Mini Platform</title>
-  <style>
-    :root{
-      --bg:#f8fbff; --card:#ffffff; --ink:#1c2340; --muted:#4f5b7a;
-      --accent:#2ea5ff; --accent2:#ff7ac4; --accent3:#59d28f; --accent4:#ffd166;
-      --good:#31c48d; --bad:#ef4444;
-    }
-    *{box-sizing:border-box}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial; background:var(--bg); color:var(--ink); margin:0}
-    header{position:sticky; top:0; background:#fff; box-shadow:0 4px 10px rgba(0,0,0,.06); z-index:50}
-    header .wrap{display:flex; align-items:center; gap:12px; padding:14px 16px}
-    .brand{font-weight:800; letter-spacing:.2px}
-    .subtitle{color:var(--muted); font-size:.9rem}
-
-    /* Tabs */
-    .tabs{display:flex; flex-wrap:wrap; gap:10px; padding:12px 16px; background:linear-gradient(90deg,var(--accent),var(--accent2));}
-    .tab-btn{appearance:none; border:none; padding:10px 14px; border-radius:12px; background:#fff; color:var(--ink); font-weight:600; cursor:pointer; transition:.2s;}
-    .tab-btn.active{background:var(--card); box-shadow:0 4px 14px rgba(0,0,0,.1)}
-    main{padding:16px}
-    section{display:none}
-    section.active{display:block}
-
-    /* Cards */
-    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px}
-    .card{background:var(--card); border-radius:16px; padding:14px; box-shadow:0 6px 16px rgba(0,0,0,.08); position:relative}
-    .pill{display:inline-block; padding:6px 10px; border-radius:999px; font-weight:700;}
-    .pill.en{background:rgba(46,165,255,.14); color:#0b6b9d}
-    .pill.ar{background:rgba(255,122,196,.18); color:#8a205e}
-    .btn{border:none; border-radius:12px; padding:10px 12px; background:var(--accent); color:#fff; font-weight:700; cursor:pointer}
-    .btn.secondary{background:var(--accent3);}
-    .btn.muted{background:#e7eef6; color:#29405a}
-    .row{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
-    .center{text-align:center}
-    .small{font-size:.9rem; color:var(--muted)}
-    .ok{color:var(--good); font-weight:800}
-    .bad{color:var(--bad); font-weight:800}
-
-    /* Dictation */
-    .dictation{background:var(--card); border-radius:16px; padding:16px; box-shadow:0 6px 16px rgba(0,0,0,.08)}
-    .dict-row{display:grid; grid-template-columns:1fr 180px; gap:10px; margin-top:10px}
-    input[type=text]{width:100%; padding:10px 12px; border:2px solid #e5eef7; border-radius:10px; outline:none; font-size:1rem}
-    input[type=text].good{border-color:#31c48d; background:#ecfbf5}
-    input[type=text].bad{border-color:#ef4444; background:#feecec}
-
-    /* Drag & Drop Match */
-    .dd-wrap{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    .col{background:var(--card); border-radius:16px; padding:12px; min-height:220px; box-shadow:0 6px 16px rgba(0,0,0,.08)}
-    .chip{background:#eef7ff; color:#083a58; padding:10px; border-radius:12px; margin:6px 0; display:flex; justify-content:space-between; align-items:center}
-    .chip[data-done="1"]{opacity:.55}
-    .drop{background:#fffbe6; border:2px dashed #ffcf5f; padding:12px; border-radius:12px; min-height:40px}
-
-    /* MCQ */
-    .mcq{background:var(--card); border-radius:16px; padding:16px; box-shadow:0 6px 16px rgba(0,0,0,.08)}
-    .q{margin:10px 0; font-weight:700}
-    .opt{background:#eef7ff; padding:10px; border-radius:10px; margin:6px 0; cursor:pointer}
-    .opt.correct{background:#ecfbf5; border:2px solid #31c48d}
-    .opt.wrong{background:#feecec; border:2px solid #ef4444}
-
-    /* Reading */
-    .sentence{background:#fff; border-left:6px solid var(--accent2); padding:10px; border-radius:12px; margin:8px 0}
-
-    /* Confetti */
-    .confetti{position:fixed; inset:0; pointer-events:none}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Unit 1 — Lesson 1 | Mini Platform</title>
+<style>
+  :root{
+    --bg:#f7fbff;
+    --card:#ffffff;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --brand:#6b9cff;/* pastel blue */
+    --brand2:#ffd166;/* warm sunshine */
+    --brand3:#95e1d3;/* mint */
+    --brand4:#ffcad4;/* soft pink */
+    --ok:#22c55e; --bad:#ef4444;
+    --shadow:0 10px 25px rgba(0,0,0,.08);
+  }
+  html,body{margin:0;background:linear-gradient(120deg,var(--bg),#fff);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; color:var(--ink)}
+  header{
+    position:sticky; top:0; z-index:5; background:rgba(255,255,255,.8); backdrop-filter: blur(8px);
+    border-bottom:1px solid #eef2ff; padding:.6rem 1rem; display:flex; align-items:center; gap:.8rem;
+  }
+  .dot{width:10px;height:10px;border-radius:50%}
+  .dot.a{background:var(--brand)} .dot.b{background:var(--brand2)} .dot.c{background:var(--brand3)} .dot.d{background:var(--brand4)}
+  h1{font-size:1.1rem;margin:0}
+  .tabs{display:flex; gap:.5rem; flex-wrap:wrap; margin:.6rem 0}
+  .tab-btn{border:none; padding:.6rem 1rem; border-radius:999px; background:#eef2ff; color:#1f2937; cursor:pointer; box-shadow:var(--shadow);
+           transition:.2s; font-weight:700}
+  .tab-btn.active{background:var(--brand); color:#003; transform:translateY(-2px)}
+  main{padding:1rem}
+  section{display:none; animation:fade .25s ease}
+  section.active{display:block}
+  @keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+  .grid{display:grid; gap:1rem}
+  .vocab-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .card{background:var(--card); border-radius:16px; padding:1rem; box-shadow:var(--shadow); position:relative; overflow:hidden}
+  .badge{position:absolute; inset:auto 1rem 1rem auto; padding:.2rem .6rem; border-radius:999px; font-size:.7rem; color:#111}
+  .b1{background:var(--brand2)} .b2{background:var(--brand3)} .b3{background:var(--brand4)}
+  .word{font-weight:800; font-size:1.25rem}
+  .meaning{color:#0f766e; font-weight:700; direction:rtl}
+  .ex{color:var(--muted)}
+  .row{display:flex; gap:.5rem; align-items:center; flex-wrap:wrap;}
+  .btn{background:var(--brand); color:#002; border:none; padding:.55rem .9rem; border-radius:12px; font-weight:700; cursor:pointer; box-shadow:var(--shadow)}
+  .btn.alt{background:#e2e8f0; color:#111}
+  .btn.good{background:var(--ok); color:#fff}
+  .btn.bad{background:var(--bad); color:#fff}
+  .pill{padding:.25rem .6rem; background:#eef2ff; border-radius:999px; font-size:.8rem}
+  .hr{height:1px; background:#e2e8f0; margin:1rem 0}
+  details{background:#f8fafc; padding:.8rem 1rem; border-radius:12px}
+  summary{cursor:pointer; font-weight:800}
+  /* Matching */
+  .match-wrap{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
+  .slot,.draggable{padding:.8rem 1rem; border-radius:12px; box-shadow:var(--shadow)}
+  .slot{min-height:58px; background:#f1f5f9}
+  .slot.correct{background:#dcfce7}
+  .slot.wrong{background:#fee2e2}
+  .draggable{background:#fffbe6; cursor:grab}
+  .draggable.dragging{opacity:.6}
+  /* MCQ */
+  .quizq{margin:.6rem 0; padding:1rem; border-radius:16px; background:#fff; box-shadow:var(--shadow)}
+  .choice{display:block; margin:.4rem 0; padding:.6rem .8rem; background:#f1f5f9; border-radius:10px; cursor:pointer}
+  .choice.correct{background:#dcfce7}
+  .choice.wrong{background:#fee2e2}
+  .score{font-weight:800}
+  /* Reading */
+  ol.reading{line-height:1.7}
+  .speak{cursor:pointer; padding:.25rem .5rem; border-radius:8px; background:#e0f2fe; font-size:.8rem}
+  /* Grammar */
+  .rule{background:#ecfeff; border-left:6px solid var(--brand); padding:1rem; border-radius:10px}
+  footer{padding:1rem; color:#64748b; text-align:center}
+  /* confetti */
+  canvas#confetti{position:fixed; inset:0; pointer-events:none}
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div>
-        <div class="brand">Mini Platform — Unit 1 · Lesson 1</div>
-        <div class="subtitle">Egypt's Heritage — Student Interactive</div>
+<canvas id="confetti"></canvas>
+<header>
+  <div class="dot a"></div><div class="dot b"></div><div class="dot c"></div><div class="dot d"></div>
+  <h1>Unit 1 • Lesson 1 — <em>Taking Pride in Our Beloved Egypt</em></h1>
+  <span class="pill" id="voiceStatus" title="British female voice preferred">Voice: en‑GB (slow)</span>
+</header>
+<main>
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="vocab">1) Vocabulary</button>
+    <button class="tab-btn" data-tab="games">2) Games</button>
+    <button class="tab-btn" data-tab="reading">3) Reading</button>
+    <button class="tab-btn" data-tab="grammar">4) Grammar</button>
+  </nav>
+
+  <!-- VOCABULARY -->
+  <section id="vocab" class="active" role="tabpanel" aria-label="Vocabulary">
+    <div class="row" style="justify-content:space-between">
+      <div class="row">
+        <button class="btn" onclick="tts('Let's learn the key words. Tap any card to hear the word, its meaning in Arabic, and a simple example.',0.9)">▶ Speak Intro</button>
+        <button class="btn alt" onclick="toggleAutoSpeak()">🔊 Auto‑speak: <span id="autoSpeakState">On</span></button>
       </div>
-      <div style="margin-left:auto" class="small">Voice: British (en‑GB) · Works offline</div>
+      <div class="pill">Tip: UI in English; meanings in Arabic for support.</div>
     </div>
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="vocab">Vocabulary</button>
-      <button class="tab-btn" data-tab="games">Games</button>
-      <button class="tab-btn" data-tab="reading">Reading</button>
-      <button class="tab-btn" data-tab="grammar">Grammar</button>
+    <div class="grid vocab-grid" id="vocabGrid"></div>
+
+    <div class="hr"></div>
+    <h3>Spelling Drill (Arabic ➜ English)</h3>
+    <p>Type the English word that matches the Arabic meaning. Press <strong>Check</strong> to get instant feedback.</p>
+    <div id="drill"></div>
+  </section>
+
+  <!-- GAMES -->
+  <section id="games" role="tabpanel" aria-label="Games">
+    <h2>Game 1 — Matching (drag the English word onto its Arabic meaning)</h2>
+    <div class="match-wrap" id="match"></div>
+    <div class="row" style="margin-top:.5rem">
+      <button class="btn" onclick="resetMatch()">↻ Reset</button>
+      <span class="pill">Score: <span id="matchScore">0</span>/<span id="matchTotal">0</span></span>
     </div>
-  </header>
 
-  <main>
-    <!-- Vocabulary TAB -->
-    <section id="vocab" class="active">
-      <h2>Vocabulary Cards</h2>
-      <p class="small">Tap any card to hear a British pronunciation. Each card shows the Arabic meaning and a simple example.</p>
-      <div id="cards" class="grid"></div>
-      <h3 class="center">Dictation — Type the English Word</h3>
-      <div id="dict" class="dictation"></div>
-    </section>
+    <div class="hr"></div>
+    <h2>Game 2 — Quick Quiz (Kahoot‑style)</h2>
+    <p>Choose the correct answer. Sounds + confetti for correct answers 🎉</p>
+    <div id="quiz"></div>
+    <div class="row">
+      <span class="pill">Score: <span id="quizScore">0</span>/<span id="quizTotal">0</span></span>
+      <button class="btn alt" onclick="resetQuiz()">↻ Restart Quiz</button>
+    </div>
 
-    <!-- Games TAB -->
-    <section id="games">
-      <h2>Games</h2>
-      <h3>1) Drag & Drop — Match Words to Meanings</h3>
-      <div class="dd-wrap">
-        <div class="col">
-          <div id="dd-english"></div>
-        </div>
-        <div class="col">
-          <div id="dd-arabic"></div>
-        </div>
-      </div>
-      <div class="row" style="margin-top:10px">
-        <button class="btn" onclick="resetDD()">Reset</button>
-        <div id="dd-score" class="small"></div>
-      </div>
-      <hr/>
-      <h3>2) Quick MCQ Quiz (Kahoot‑style)</h3>
-      <div id="mcq" class="mcq"></div>
-    </section>
+    <div class="hr"></div>
+    <h2>Game 3 — Type the Word</h2>
+    <p>Write the English word when you see its Arabic meaning.</p>
+    <div id="typeGame"></div>
+  </section>
 
-    <!-- Reading TAB -->
-    <section id="reading">
-      <h2>Reading — 6 Simple Sentences</h2>
-      <p class="small">Click the speaker to listen. The voice uses slow British English.</p>
-      <div id="reading-list"></div>
-    </section>
+  <!-- READING -->
+  <section id="reading" role="tabpanel" aria-label="Reading">
+    <h2>Reading — 6 simple sentences (with audio)</h2>
+    <ol class="reading" id="readingList"></ol>
+    <div class="row">
+      <button class="btn" onclick="speakReading(0)">▶ Play All (slow)</button>
+      <button class="btn alt" onclick="stopTTS()">⏹ Stop</button>
+    </div>
+  </section>
 
-    <!-- Grammar TAB -->
-    <section id="grammar">
-      <h2>Grammar — Past Simple & Past Continuous</h2>
-      <div class="card">
-        <p><strong>Past Simple</strong>: used for completed actions in the past. <em>"The Egyptians <u>built</u> monuments."</em></p>
-        <p><strong>Past Continuous</strong>: used to show a longer action in progress in the past, often interrupted by a shorter action. <em>"We <u>were visiting</u> the museum when the guide <u>arrived</u>."</em></p>
-        <ul>
-          <li>While/When/As + Past Continuous → longer action.</li>
-          <li>Past Simple → shorter action that interrupts.</li>
-        </ul>
-      </div>
-      <h3>Practice — Multiple Choice</h3>
-      <div id="grammar-quiz" class="mcq"></div>
-    </section>
-  </main>
+  <!-- GRAMMAR -->
+  <section id="grammar" role="tabpanel" aria-label="Grammar">
+    <h2>Past Simple vs. Past Continuous</h2>
+    <div class="rule">
+      <ul>
+        <li><strong>Past Simple</strong> = finished actions in the past. <em>We visited the museum yesterday.</em></li>
+        <li><strong>Past Continuous</strong> = longer past action (was/were + V‑ing), often interrupted by a shorter action in the past simple. <em>She was reading when the phone rang.</em></li>
+        <li>Use words like <em>while, when, during</em> to show the relationship between actions.</li>
+      </ul>
+      <button class="btn" onclick="tts('Past Simple versus Past Continuous. Use the past simple for finished actions. Use the past continuous for a longer action in progress, often interrupted by a shorter action. Listen to the examples.',0.92)">▶ Explain</button>
+    </div>
 
-  <canvas id="confetti" class="confetti"></canvas>
+    <h3>Practice — Choose the correct answer</h3>
+    <div id="gquiz"></div>
+    <div class="row">
+      <span class="pill">Score: <span id="gScore">0</span>/<span id="gTotal">0</span></span>
+      <button class="btn alt" onclick="resetGQuiz()">↻ Restart</button>
+    </div>
 
-  <script>
-    /* ===================== Data ===================== */
-    const WORDS = [
-      {en:'heritage', ar:'التراث', eg:'We protect our heritage.'},
-      {en:'civilization', ar:'الحضارة', eg:'Ancient Egypt was a great civilization.'},
-      {en:'monument', ar:'مَعلم/أثَر تاريخي', eg:'The Pyramids are famous monuments.'},
-      {en:'merchant', ar:'تاجر', eg:'Merchants traveled along the Nile.'},
-      {en:'crossroads', ar:'ملتقى طرق', eg:'Egypt was a crossroads for trade.'},
-      {en:'hieroglyphs', ar:'الهيروغليفية', eg:'Hieroglyphs recorded history.'},
-      {en:'Library of Alexandria', ar:'مكتبة الإسكندرية', eg:'The Library of Alexandria gathered knowledge.'},
-      {en:'identity', ar:'الهوية', eg:'Preserving sites supports national identity.'},
-      {en:'restore', ar:'نُرمِّم/نستعيد', eg:'We restore historical buildings.'},
-      {en:'determination', ar:'الإصرار/العزيمة', eg:'Determination helps us progress.'},
-      {en:'progress', ar:'التقدم', eg:'Our cities show progress.'},
-      {en:'neighborhood', ar:'حَيّ/منطقة سكنية', eg:'New neighborhoods are being built.'},
-      {en:'culture', ar:'الثقافة', eg:'We share our culture with the world.'},
-      {en:'pride', ar:'فخر', eg:'We take pride in our country.'},
-      {en:'ancient', ar:'قديم', eg:'Ancient achievements inspire us.'}
-    ];
+    <details style="margin-top:1rem">
+      <summary>How to use this mini platform (teacher tips)</summary>
+      <ul>
+        <li>Everything works offline in one file. Ideal for phones.</li>
+        <li>British female voice is selected automatically if available; otherwise any en‑GB voice.</li>
+        <li>Use the tabs: Vocabulary → Games → Reading → Grammar.</li>
+      </ul>
+    </details>
+  </section>
+</main>
+<footer>© Designed for learning — pastel colors, gentle sounds, and en‑GB voice. </footer>
 
-    const READING = [
-      'Egypt is a place where the past and the present meet in harmony.',
-      'Our ancestors built one of the greatest civilizations in history.',
-      'Hieroglyphs were used to record important events and ideas.',
-      'The Library of Alexandria once gathered knowledge from around the world.',
-      'Egypt was a crossroads for trade, connecting people and cultures.',
-      'Today, we build museums, roads, and neighborhoods while protecting our heritage.'
-    ];
+<script>
+// ---------------- Data -----------------
+const VOCAB = [
+  {w:'heritage', ar:'تراث', ex:'Egypt has a rich heritage.'},
+  {w:'monument', ar:'أثر / صرح', ex:'The pyramids are famous monuments.'},
+  {w:'civilization', ar:'حضارة', ex:'Ancient Egyptians built a great civilization.'},
+  {w:'hieroglyphs', ar:'الهيروغليفية', ex:'Hieroglyphs recorded history.'},
+  {w:'Library of Alexandria', ar:'مكتبة الإسكندرية', ex:'The Library of Alexandria gathered knowledge.'},
+  {w:'crossroads', ar:'ملتقى طرق', ex:'Egypt was a crossroads for trade.'},
+  {w:'merchants', ar:'تجّار', ex:'Merchants traveled along the Nile.'},
+  {w:'pride', ar:'فخر', ex:'We feel pride in our country.'},
+  {w:'determination', ar:'عزيمة / إصرار', ex:'Determination helps us progress.'},
+  {w:'neighborhoods', ar:'أحياء سكنية', ex:'New neighborhoods are being built.'},
+  {w:'restore', ar:'يُرمّم', ex:'We restore old buildings.'},
+  {w:'preserve', ar:'يحافظ على', ex:'We must preserve our culture.'},
+  {w:'identity', ar:'هوية', ex:'Heritage strengthens our identity.'},
+  {w:'progress', ar:'تقدّم', ex:'Modern Egypt shows progress.'},
+  {w:'temple', ar:'معبد', ex:'Karnak Temple is very old.'},
+  {w:'pharaoh', ar:'فرعون', ex:'A pharaoh ruled ancient Egypt.'},
+  {w:'artifact', ar:'قطعة أثرية', ex:'The museum displayed an artifact.'},
+  {w:'ancestors', ar:'أسلاف', ex:'Our ancestors built great things.'},
+  {w:'archaeology', ar:'علم الآثار', ex:'Archaeology studies ancient remains.'}
+];
 
-    const MCQ = [
-      {q:'"التراث" بالإنجليزية هو …', opts:['identity','heritage','progress','culture'], a:1},
-      {q:'The Pyramids are famous _____.', opts:['monuments','merchants','crossroads','neighborhoods'], a:0},
-      {q:'To _____ historical buildings means to repair and protect them.', opts:['determine','restore','record','trade'], a:1},
-      {q:'Egypt was a _____ for trade in the past.', opts:['library','crossroads','identity','artifact'], a:1},
-      {q:'Preserving sites supports national _____.', opts:['pride','identity','merchant','progress'], a:1}
-    ];
+const READING = [
+  'Egypt's past and present meet in harmony.',
+  'Ancient Egyptians shared knowledge in writing, mathematics, and medicine.',
+  'Hieroglyphs were used to record history.',
+  'Egypt was a crossroads for trade along the Nile and across the deserts.',
+  'Today, we build roads and neighborhoods while protecting old monuments.',
+  'Every citizen should preserve our heritage with pride and determination.'
+];
 
-    const GRAMMAR_Q = [
-      {q:'I ____ a book when the phone rang.', opts:['read','was reading','reads','reading'], a:1, tip:'Long action in progress → Past Continuous.'},
-      {q:'They ____ football last weekend.', opts:['played','were playing','plays','was playing'], a:0, tip:'Completed action → Past Simple.'},
-      {q:'While we ____ along the Nile, we met a friendly merchant.', opts:['walked','were walking','was walking','walk'], a:1, tip:'After "While" use Past Continuous.'},
-      {q:'The guide ____ when we were visiting the museum.', opts:['arrived','was arriving','arrive','arrives'], a:0, tip:'Short interrupting action → Past Simple.'},
-      {q:'When the lights went out, the students ____.', opts:['were studying','study','studied','was studying'], a:0, tip:'"When" + Past Simple → other action in Past Continuous.'}
-    ];
+const QUIZ = [
+  {q:'"تراث" in English is …', opts:['heritage','future','technology','modernity'], a:0},
+  {q:'The Pyramids are a famous … in Egypt.', opts:['object','festival','monument','instrument'], a:2},
+  {q:'Tutankhamun was an … Egyptian king.', opts:['recent','modern','temporary','ancient'], a:3},
+  {q:'The Nile helped the growth of Egyptian …', opts:['disaster','animal','person','civilization'], a:3},
+  {q:'The museum displayed a rare … from ancient times.', opts:['machine','plant','artifact','note'], a:2},
+  {q:'We should … our historical buildings.', opts:['destroy','ignore','forget','preserve'], a:3},
+  {q:'Our … lived in small villages long ago.', opts:['ancestors','festival','language','building'], a:0},
+  {q:'… is the study of human history through remains.', opts:['Archaeology','Astronomy','Botany','Meteorology'], a:0},
+  {q:'The Karnak … is one of the largest in Egypt.', opts:['food','instrument','festival','temple'], a:3},
+  {q:'A … ruled Egypt thousands of years ago.', opts:['soldier','pharaoh','farmer','priest'], a:1}
+];
 
-    /* ===================== Voice ===================== */
-    let voiceGB = null;
-    function pickVoice(){
-      const vs = speechSynthesis.getVoices();
-      voiceGB = vs.find(v=>v.lang==='en-GB' && /Google|Female|UK/i.test(v.name)) || vs.find(v=>v.lang==='en-GB') || vs[0] || null;
-    }
-    window.speechSynthesis.onvoiceschanged = pickVoice; pickVoice();
-    function speak(text){
-      const u = new SpeechSynthesisUtterance(text);
-      if(voiceGB) u.voice = voiceGB;
-      u.rate = 0.9; u.pitch = 1.05; speechSynthesis.speak(u);
-    }
+const GQUIZ = [
+  {q:'I ___ the museum yesterday.', opts:['visit','visited','was visiting','visiting'], a:1},
+  {q:'While I ___ in the street, I saw an old friend.', opts:['walk','walked','was walking','walking'], a:2},
+  {q:'She ___ a book when the phone rang.', opts:['read','was reading','reads','reading'], a:1},
+  {q:'They ___ football last weekend.', opts:['play','played','playing','was playing'], a:1},
+  {q:'I ___ when you called me.', opts:['sleep','slept','sleeping','was sleeping'], a:3},
+  {q:'He ___ TV when his mother came home.', opts:['watch','watched','watching','was watching'], a:3},
+  {q:'We ___ to Cairo last summer.', opts:['go','went','was going','going'], a:1},
+  {q:'She was ___ dinner when I arrived.', opts:['cook','cooked','cooking','was cooking'], a:3},
+  {q:'I ___ the pyramids two years ago.', opts:['see','saw','seeing','was seeing'], a:1},
+  {q:'They were ___ when the lights went out.', opts:['dance','danced','dancing','was dancing'], a:2}
+];
 
-    /* Simple success sound (offline, using WebAudio) */
-    function cheer(){
-      const ctx = new (window.AudioContext||window.webkitAudioContext)();
-      const o = ctx.createOscillator(); const g = ctx.createGain();
-      o.type='triangle'; o.frequency.value=660; g.gain.value=0.08; o.connect(g); g.connect(ctx.destination);
-      o.start(); setTimeout(()=>{o.frequency.value=990},150); setTimeout(()=>{o.stop(); ctx.close()},350);
-      confettiBurst();
-    }
+// -------------- Voice (en-GB) ---------------
+let synth = window.speechSynthesis;
+let selectedVoice = null;
+let autoSpeak = true;
+function pickVoice(){
+  const voices = synth.getVoices();
+  // Prefer female British
+  const targets = ['Google UK English Female','Microsoft Sonia Online (Natural) - English (United Kingdom)','Microsoft Hazel - English (Great Britain)','en-GB','UK English'];
+  selectedVoice = null;
+  for(const name of targets){
+    const v = voices.find(v=> (v.name||'').includes(name) || (v.lang||'').includes('en-GB'));
+    if(v){ selectedVoice=v; break; }
+  }
+  document.getElementById('voiceStatus').textContent = 'Voice: '+(selectedVoice? (selectedVoice.lang+' '+selectedVoice.name) : 'Default en-GB')+' (slow)';
+}
+window.speechSynthesis.onvoiceschanged = pickVoice; pickVoice();
 
-    /* ===================== UI — Tabs ===================== */
-    document.querySelectorAll('.tab-btn').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-        document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(btn.dataset.tab).classList.add('active');
-      });
+function tts(text, rate=0.9){
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    if(selectedVoice) u.voice = selectedVoice; u.lang = 'en-GB'; u.rate = rate; u.pitch = 1; synth.cancel(); synth.speak(u);
+  }catch(e){console.warn('TTS not available',e)}
+}
+function stopTTS(){ try{ synth.cancel(); }catch(e){} }
+function toggleAutoSpeak(){ autoSpeak = !autoSpeak; document.getElementById('autoSpeakState').textContent = autoSpeak? 'On':'Off'; }
+
+// -------------- Build Vocabulary Cards ---------------
+function buildVocab(){
+  const grid = document.getElementById('vocabGrid');
+  grid.innerHTML = '';
+  VOCAB.forEach((item,i)=>{
+    const card = document.createElement('div'); card.className='card';
+    const badge = document.createElement('div'); badge.className='badge '+(['b1','b2','b3'][i%3]); badge.textContent = (i+1).toString().padStart(2,'0');
+    const word = document.createElement('div'); word.className='word'; word.textContent=item.w;
+    const meaning = document.createElement('div'); meaning.className='meaning'; meaning.textContent=item.ar;
+    const ex = document.createElement('div'); ex.className='ex'; ex.textContent=item.ex;
+    const row = document.createElement('div'); row.className='row';
+    const speakBtn = document.createElement('button'); speakBtn.className='btn'; speakBtn.textContent='🔊 Speak';
+    speakBtn.onclick=()=>tts(`${item.w}. ${item.ar} means. Example: ${item.ex}`,0.9);
+    const speakEx = document.createElement('button'); speakEx.className='btn alt'; speakEx.textContent='▶ Example';
+    speakEx.onclick=()=>tts(item.ex,0.92);
+    row.appendChild(speakBtn); row.appendChild(speakEx);
+    card.appendChild(badge); card.appendChild(word); card.appendChild(meaning); card.appendChild(ex); card.appendChild(row);
+    card.onclick=()=>{ if(autoSpeak) tts(`${item.w}. ${item.ex}`,0.9); };
+    grid.appendChild(card);
+  });
+
+  buildDrill();
+}
+
+// -------------- Spelling Drill ----------------
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function buildDrill(){
+  const host = document.getElementById('drill'); host.innerHTML='';
+  const items = shuffle(VOCAB.slice(0,12));
+  items.forEach((it,idx)=>{
+    const wrap=document.createElement('div'); wrap.className='card';
+    wrap.innerHTML=`<div class="row" style="justify-content:space-between"><div><strong>${idx+1}.</strong> <span class="meaning">${it.ar}</span></div> <button class="btn alt" data-say>🔊</button></div>
+    <div class="row" style="margin-top:.5rem"><input style="flex:1;padding:.6rem;border-radius:10px;border:1px solid #cbd5e1" placeholder="Type English word here"/> <button class="btn" data-check>Check</button> <span class="pill" data-res></span></div>`;
+    const say = wrap.querySelector('[data-say]'); say.onclick=()=>tts(it.w,0.88);
+    const input = wrap.querySelector('input');
+    const res = wrap.querySelector('[data-res]');
+    wrap.querySelector('[data-check]').onclick=()=>{
+      const ok = input.value.trim().toLowerCase() === it.w.toLowerCase();
+      res.textContent = ok? '✔ Correct':'✖ Try again'; res.style.background = ok? '#dcfce7':'#fee2e2';
+      if(ok){ yay(); tts(it.w+' correct',0.95);} else boo();
+    };
+    host.appendChild(wrap);
+  });
+}
+
+// -------------- Matching (drag-drop) --------------
+let matchPairs=[]; let matchScore=0; let matchTotal=0;
+function buildMatch(){
+  const container = document.getElementById('match');
+  matchPairs = shuffle(VOCAB.slice(0,10));
+  matchScore = 0; matchTotal = matchPairs.length;
+  document.getElementById('matchScore').textContent = 0; document.getElementById('matchTotal').textContent = matchTotal;
+  container.innerHTML='';
+  const left = document.createElement('div'); const right = document.createElement('div');
+  const eng = shuffle(matchPairs.map(x=>x.w));
+  const ara = shuffle(matchPairs.map(x=>x.ar));
+  eng.forEach(w=>{
+    const d=document.createElement('div'); d.className='draggable'; d.textContent=w; d.draggable=true; d.id='drag-'+w.replace(/\s+/g,'_');
+    d.addEventListener('dragstart',e=>{ d.classList.add('dragging'); e.dataTransfer.setData('text/plain',w); });
+    d.addEventListener('dragend',()=>d.classList.remove('dragging'));
+    left.appendChild(d);
+  });
+  ara.forEach(ar=>{
+    const s=document.createElement('div'); s.className='slot'; s.dataset.expect = matchPairs.find(p=>p.ar===ar).w;
+    s.innerHTML=`<div class="meaning">${ar}</div>`;
+    s.addEventListener('dragover',e=>e.preventDefault());
+    s.addEventListener('drop',e=>{
+      e.preventDefault(); const w=e.dataTransfer.getData('text/plain');
+      if(!w) return; if(s.dataset.filled) return;
+      const ok = w===s.dataset.expect;
+      s.classList.add(ok?'correct':'wrong'); s.dataset.filled='1'; s.appendChild(document.getElementById('drag-'+w.replace(/\s+/g,'_')));
+      if(ok){ matchScore++; document.getElementById('matchScore').textContent = matchScore; yay(); tts(w+' correct',0.95);} else { boo(); tts('Not quite. Try another one.',0.95); }
+      if(matchScore===matchTotal) confettiBurst();
     });
+    right.appendChild(s);
+  });
+  container.appendChild(left); container.appendChild(right);
+}
+function resetMatch(){ buildMatch(); }
 
-    /* ===================== Vocabulary Cards ===================== */
-    const cards = document.getElementById('cards');
-    WORDS.forEach(w=>{
-      const c = document.createElement('div'); c.className='card';
-      c.innerHTML = `<div class="row"><span class="pill en">${w.en}</span><button class="btn muted" aria-label="Speak" title="Play" data-word="${w.en}">🔈</button></div>
-        <p class="small"><span class="pill ar">${w.ar}</span></p>
-        <p>${w.eg}</p>`;
-      c.querySelector('button').onclick=()=>speak(w.en + '. ' + w.eg);
-      c.onclick=()=>speak(w.en);
-      cards.appendChild(c);
+// -------------- Quick Quiz (vocab) --------------
+let qScore=0;
+function buildQuiz(){
+  const host = document.getElementById('quiz'); host.innerHTML=''; qScore=0;
+  document.getElementById('quizScore').textContent=0; document.getElementById('quizTotal').textContent=QUIZ.length;
+  QUIZ.forEach((it,qi)=>{
+    const box=document.createElement('div'); box.className='quizq';
+    box.innerHTML=`<div class="row" style="justify-content:space-between"><strong>${qi+1}. ${it.q}</strong> <button class="speak">🔊</button></div>`;
+    box.querySelector('.speak').onclick=()=>tts(it.q,0.95);
+    it.opts.forEach((opt,oi)=>{
+      const btn=document.createElement('div'); btn.className='choice'; btn.textContent=String.fromCharCode(97+oi)+') '+opt;
+      btn.onclick=()=>{
+        if(btn.classList.contains('correct')||btn.classList.contains('wrong')) return;
+        const ok = oi===it.a; btn.classList.add(ok?'correct':'wrong');
+        if(ok){ qScore++; yay(); tts('Correct',0.9); confettiMini(btn); } else { boo(); }
+        document.getElementById('quizScore').textContent=qScore;
+      };
+      box.appendChild(btn);
     });
+    host.appendChild(box);
+  });
+}
+function resetQuiz(){ buildQuiz(); }
 
-    /* Dictation */
-    const dict = document.getElementById('dict');
-    WORDS.slice(0,10).forEach((w,i)=>{
-      const row = document.createElement('div'); row.className='dict-row';
-      row.innerHTML = `<div><strong>${i+1}.</strong> Meaning: <span class="pill ar">${w.ar}</span></div>
-        <div><input type="text" placeholder="Type English here" data-ans="${w.en}" /></div>`;
-      const inp = row.querySelector('input');
-      inp.addEventListener('change',()=>{
-        const ok = inp.value.trim().toLowerCase()===w.en.toLowerCase();
-        inp.classList.remove('good','bad');
-        inp.classList.add(ok?'good':'bad');
-        if(ok){cheer(); speak('Great! Correct: '+w.en)} else {speak('Try again.')}
-      });
-      dict.appendChild(row);
+// -------------- Grammar Quiz ---------------------
+let gScore=0;
+function buildGQuiz(){
+  const host=document.getElementById('gquiz'); host.innerHTML=''; gScore=0; document.getElementById('gScore').textContent=0; document.getElementById('gTotal').textContent=GQUIZ.length;
+  GQUIZ.forEach((it,qi)=>{
+    const box=document.createElement('div'); box.className='quizq';
+    box.innerHTML=`<div class="row" style="justify-content:space-between"><strong>${qi+1}. ${it.q}</strong> <button class="btn alt" data-show>Show answer</button></div>`;
+    it.opts.forEach((opt,oi)=>{
+      const btn=document.createElement('div'); btn.className='choice'; btn.textContent=String.fromCharCode(97+oi)+') '+opt;
+      btn.onclick=()=>{
+        if(btn.classList.contains('correct')||btn.classList.contains('wrong')) return;
+        const ok = oi===it.a; btn.classList.add(ok?'correct':'wrong'); if(ok){ gScore++; yay(); confettiMini(btn);} else { boo(); }
+        document.getElementById('gScore').textContent=gScore;
+      };
+      box.appendChild(btn);
     });
+    box.querySelector('[data-show]').onclick=()=>{
+      const choices=[...box.querySelectorAll('.choice')]; choices.forEach((c,i)=>{ if(i===it.a){ c.classList.add('correct'); } });
+    };
+    host.appendChild(box);
+  });
+}
+function resetGQuiz(){ buildGQuiz(); }
 
-    /* ===================== Drag & Drop Match ===================== */
-    let ddScore = 0;
-    const ddE = document.getElementById('dd-english');
-    const ddA = document.getElementById('dd-arabic');
-    function buildDD(){
-      ddScore=0; ddE.innerHTML=''; ddA.innerHTML='';
-      const shuffled = [...WORDS].sort(()=>Math.random()-0.5).slice(0,8);
-      shuffled.forEach((w,idx)=>{
-        const chip = document.createElement('div'); chip.className='chip'; chip.draggable=true; chip.dataset.key=idx;
-        chip.textContent = w.en; chip.addEventListener('dragstart',ev=>{ev.dataTransfer.setData('text', idx)});
-        ddE.appendChild(chip);
-      });
-      shuffled.forEach((w,idx)=>{
-        const holder = document.createElement('div'); holder.className='drop'; holder.dataset.key=idx;
-        holder.innerHTML = `<div class="small">${w.ar}</div>`;
-        holder.addEventListener('dragover',ev=>ev.preventDefault());
-        holder.addEventListener('drop',ev=>{
-          const k = ev.dataTransfer.getData('text');
-          if(k==holder.dataset.key){
-            const chip = [...ddE.querySelectorAll('.chip')].find(c=>c.dataset.key==k);
-            if(chip && chip.dataset.done!=='1'){
-              chip.dataset.done='1'; holder.appendChild(chip.cloneNode(true));
-              holder.style.background='#ecfbf5'; holder.style.borderColor='#31c48d';
-              ddScore++; cheer(); speak('Correct match');
-              document.getElementById('dd-score').textContent = `Score: ${ddScore}/${shuffled.length}`;
-            }
-          } else {
-            holder.style.background='#feecec'; holder.style.borderColor='#ef4444'; speak('Not correct. Try again.');
-            setTimeout(()=>{holder.style.background='#fffbe6'; holder.style.borderColor='#ffcf5f'},600);
-          }
-        });
-        ddA.appendChild(holder);
-      });
-      document.getElementById('dd-score').textContent = `Score: 0/${shuffled.length}`;
-    }
-    buildDD();
-    function resetDD(){buildDD()}
+// -------------- Reading --------------------------
+function buildReading(){
+  const ol=document.getElementById('readingList'); ol.innerHTML='';
+  READING.forEach((line,i)=>{
+    const li=document.createElement('li');
+    li.innerHTML=`${line} <button class="speak" onclick="tts('${line}',0.88)">🔊</button>`; ol.appendChild(li);
+  });
+}
+function speakReading(i){ if(i>=READING.length) return; tts(READING[i],0.88); const next=()=>speakReading(i+1); setTimeout(next, 3000); }
 
-    /* ===================== MCQ ===================== */
-    const mcqBox = document.getElementById('mcq');
-    function buildMCQ(){
-      mcqBox.innerHTML='';
-      MCQ.forEach((item,i)=>{
-        const wrap = document.createElement('div'); wrap.className='qwrap';
-        const q = document.createElement('div'); q.className='q'; q.textContent = `${i+1}. ${item.q}`; wrap.appendChild(q);
-        item.opts.forEach((t,idx)=>{
-          const o = document.createElement('div'); o.className='opt'; o.textContent = t;
-          o.onclick = ()=>{
-            if(idx===item.a){ o.classList.add('correct'); cheer(); speak('Excellent!') }
-            else { o.classList.add('wrong'); speak('Incorrect. Correct answer: '+item.opts[item.a]); }
-          };
-          wrap.appendChild(o);
-        });
-        mcqBox.appendChild(wrap);
-      });
-    }
-    buildMCQ();
+// -------------- Nav tabs -------------------------
+const tabs=[...document.querySelectorAll('.tab-btn')];
+const sections={};
+['vocab','games','reading','grammar'].forEach(id=>sections[id]=document.getElementById(id));
 
-    /* ===================== Reading ===================== */
-    const rBox = document.getElementById('reading-list');
-    READING.forEach((s,idx)=>{
-      const d = document.createElement('div'); d.className='sentence';
-      d.innerHTML = `<strong>${idx+1}.</strong> ${s} <button class='btn muted' style='float:right'>🔈</button>`;
-      d.querySelector('button').onclick = ()=>speak(s);
-      rBox.appendChild(d);
-    });
+tabs.forEach(btn=>btn.addEventListener('click',()=>{
+  tabs.forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  Object.values(sections).forEach(s=>s.classList.remove('active')); sections[btn.dataset.tab].classList.add('active');
+}));
 
-    /* ===================== Grammar Quiz ===================== */
-    const gBox = document.getElementById('grammar-quiz');
-    GRAMMAR_Q.forEach((item,i)=>{
-      const wrap = document.createElement('div'); wrap.className='qwrap';
-      const q = document.createElement('div'); q.className='q'; q.textContent = `${i+1}. ${item.q}`; wrap.appendChild(q);
-      item.opts.forEach((t,idx)=>{
-        const o = document.createElement('div'); o.className='opt'; o.textContent = t;
-        o.onclick = ()=>{
-          if(idx===item.a){ o.classList.add('correct'); cheer(); speak('Well done!'); }
-          else { o.classList.add('wrong'); speak('Wrong. Correct answer: '+item.opts[item.a]); const tip=document.createElement('div'); tip.className='small'; tip.textContent=item.tip; wrap.appendChild(tip);} };
-        wrap.appendChild(o);
-      });
-      gBox.appendChild(wrap);
-    });
+// -------------- Sounds + Confetti ----------------
+const ding = new Audio('data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQAAACAAAC4AAAAAAACQAAACcQAAACAAAC4AAAAAAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+// Minimal silent-safe data URLs; we also use WebAudio for feedback tones
+function yay(){ tone(880,0.07); tone(1175,0.09); confettiBurst(200); }
+function boo(){ tone(200,0.2); tone(150,0.15); }
+function tone(freq,dur){ if(!window.AudioContext) return; const a=new (window.AudioContext||window.webkitAudioContext)(); const o=a.createOscillator(); const g=a.createGain(); o.connect(g); g.connect(a.destination); o.frequency.value=freq; o.type='sine'; g.gain.setValueAtTime(0.0001,a.currentTime); g.gain.exponentialRampToValueAtTime(0.2,a.currentTime+0.01); g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+dur); o.start(); o.stop(a.currentTime+dur+0.01); }
 
-    /* ===================== Confetti ===================== */
-    const canvas = document.getElementById('confetti'); const ctx = canvas.getContext('2d');
-    let pieces=[]; function resize(){canvas.width=innerWidth; canvas.height=innerHeight} window.addEventListener('resize',resize); resize();
-    function confettiBurst(){
-      for(let i=0;i<50;i++) pieces.push({x:Math.random()*canvas.width,y:-10,vy:2+Math.random()*4, vx:(Math.random()-0.5)*2, size:4+Math.random()*8, color:[
-        '#2ea5ff','#ff7ac4','#59d28f','#ffd166'][Math.floor(Math.random()*4)]});
-      if(!anim) anim = requestAnimationFrame(loop);
-    }
-    let anim=null; function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); pieces.forEach(p=>{p.x+=p.vx;p.y+=p.vy;ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y,p.size,p.size)}); pieces=pieces.filter(p=>p.y<canvas.height); if(pieces.length){anim=requestAnimationFrame(loop)} else {cancelAnimationFrame(anim); anim=null} }
-  </script>
+// Confetti
+const canvas=document.getElementById('confetti'); const ctx=canvas.getContext('2d'); let confetti=[]; function resize(){ canvas.width=innerWidth; canvas.height=innerHeight;} window.addEventListener('resize',resize); resize();
+function confettiBurst(n=80){ const colors=['#6b9cff','#ffd166','#95e1d3','#ffcad4']; for(let i=0;i<n;i++){ confetti.push({x:Math.random()*canvas.width,y:-10,vy:2+Math.random()*3,vx:(Math.random()-0.5)*3,size:4+Math.random()*6,color:colors[i%colors.length],life:80+Math.random()*50});} }
+function confettiMini(el){ const rect=el.getBoundingClientRect(); for(let i=0;i<40;i++){ confetti.push({x:rect.x+rect.width/2,y:rect.y,vy:2+Math.random()*3,vx:(Math.random()-0.5)*3,size:3+Math.random()*5,color:['#6b9cff','#ffd166','#95e1d3','#ffcad4'][i%4],life:60+Math.random()*40}); } }
+function confettiTick(){ ctx.clearRect(0,0,canvas.width,canvas.height); confetti.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.vy+=0.02; p.life--; ctx.fillStyle=p.color; ctx.fillRect(p.x,p.y,p.size,p.size);}); confetti=confetti.filter(p=>p.life>0); requestAnimationFrame(confettiTick); } confettiTick();
+
+// -------------- Build all ------------------------
+function init(){ buildVocab(); buildMatch(); buildQuiz(); buildReading(); buildGQuiz(); tts('Welcome to Lesson one, Vocabulary, Games, Reading and Grammar. Good luck!',0.95); }
+window.addEventListener('load', init);
+</script>
 </body>
 </html>
