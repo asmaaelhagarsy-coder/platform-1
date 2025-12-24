@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 1 – Egypt's Heritage | Ms/ English (ES5 Preview)</title>
+<style>
+  :root{--ink:#143a56;--muted:#6b7a99;--ok:#1ecb7a;--bad:#ff6161;--card:#ffffff;--shadow:0 10px 24px rgba(0,0,0,.08)}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#f9ffff 0%,#f5fbff 50%,#f8fffc 100%);color:var(--ink)}
+  header{position:sticky;top:0;z-index:10;backdrop-filter:saturate(1.2) blur(6px);background:linear-gradient(90deg,#5cc9f5,#77ed91,#f7b267,#c7a0f9);color:#04374e;padding:12px 10px;box-shadow:var(--shadow)}
+  .wrapHead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:8px}
+  .logo svg{width:46px;height:46px}
+  .logo .t{font-weight:900;letter-spacing:.3px}
+  h1{margin:0;font-size:clamp(20px,4.5vw,28px);font-weight:900}
+  .subtitle{font-weight:700;color:#093a50}
+  .container{max-width:980px;margin:14px auto;padding:0 10px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tab{flex:1 1 auto;text-align:center;padding:10px;border-radius:12px;background:#fff;box-shadow:var(--shadow);cursor:pointer;font-weight:800}
+  .tab.active{background:linear-gradient(135deg,#fff 0%,#eaffff 100%);outline:3px solid #5cc9f5}
+  .panel{display:none;margin-top:12px}
+  .panel.show{display:block}
+  .subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+  .subtab{flex:1 1 auto;text-align:center;padding:8px;border-radius:10px;background:#fff;box-shadow:var(--shadow);cursor:pointer;font-weight:800;color:#004e5f}
+  .subtab.active{background:linear-gradient(135deg,#fff 0%,#f1fff8 100%);outline:2px solid #77ed91}
+
+  /* Gradient, bright cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .card{border-radius:18px;padding:12px;box-shadow:var(--shadow);color:#0c4b6e;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:-40% -20%;background:conic-gradient(from 180deg,#5cc9f5,#77ed91,#f7b267,#c7a0f9,#5cc9f5);filter:blur(48px);opacity:.22}
+  .card .inner{position:relative}
+  .word{display:flex;align-items:center;justify-content:space-between}
+  .word .en{font-size:20px;font-weight:900}
+  .word .ar{font-size:14px;color:#1c7a61}
+  .example{margin-top:6px;color:#2f5175}
+  .actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .btn{border:none;border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer;background:#ffffff99;color:#004258;box-shadow:var(--shadow);backdrop-filter:blur(4px)}
+  .btn.primary{background:linear-gradient(90deg,#5cc9f5,#77ed91);color:#00334a}
+  .btn.good{background:linear-gradient(90deg,#3ce87a,#93f0a0);color:#003d1f}
+  .btn.bad{background:linear-gradient(90deg,#ff8a8a,#ffd0d0);color:#5a0000}
+
+  /* games */
+  .drag-area{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+  .drop{background:#fff;border:2px dashed #b8e6ff;border-radius:14px;padding:10px;min-height:68px}
+  .draggable{background:#fff;border-radius:14px;padding:10px;box-shadow:var(--shadow);cursor:grab}
+  .correct{border-color:var(--ok);background:#eafff3}
+  .wrong{border-color:var(--bad);background:#ffecec}
+
+  /* quizzes */
+  .quiz{background:#fff;border-radius:16px;padding:12px;box-shadow:var(--shadow)}
+  .quiz .q{font-weight:900}
+  .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:8px}
+  .choice{padding:10px;border-radius:12px;background:#f6fbff;cursor:pointer;box-shadow:var(--shadow);text-align:center;font-weight:800;transition:.15s transform ease}
+  .choice.ok{background:#eafff3;outline:2px solid var(--ok);animation:pulse .45s}
+  .choice.no{background:#ffecec;outline:2px solid var(--bad);animation:shake .35s}
+  @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+  @keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-3px)}50%{transform:translateX(3px)}75%{transform:translateX(-2px)}100%{transform:translateX(0)}}
+
+  /* progress + result */
+  .progress{height:10px;background:#e7f6ff;border-radius:999px;overflow:hidden;margin-top:8px}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,#77ed91,#5cc9f5)}
+  .result{margin-top:10px;font-weight:900}
+
+  footer{margin:28px 0;text-align:center;color:var(--muted)}
+  .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#f7b267,#c7a0f9);color:#fff;font-weight:800}
+
+  .confetti{position:fixed;inset:0;pointer-events:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrapHead">
+    <div class="logo" title="Ms/ English">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/200/svg" aria-label="Ms/ English logo">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#5cc9f5"/>
+            <stop offset="50%" stop-color="#77ed91"/>
+            <stop offset="100%" stop-color="#c7a0f9"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="56" fill="url(#g)" stroke="#fff" stroke-width="6"/>
+        <text x="60" y="54" text-anchor="middle" font-family="Segoe UI,Arial" font-size="28" font-weight="900" fill="#0b3d52">Ms/</text>
+        <text x="60" y="88" text-anchor="middle" font-family="Segoe UI,Arial" font-size="20" font-weight="800" fill="#083042">English</text>
+      </svg>
+      <div class="t">Ms/ English</div>
+    </div>
+    <div>
+      <h1>Unit 1 · Egypt's Heritage</h1>
+      <div class="subtitle">Mobile‑friendly · Works offline · British voice</div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="tabs" id="topTabs"></nav>
+  <section id="panels"></section>
+
+  <footer>
+    <span class="badge">Designed by Ms. Asmaa Mahmoud El‑Hagarsi · Keep shining ✨</span>
+  </footer>
+</div>
+
+<canvas class="confetti" id="confetti"></canvas>
+
+<script>
+(function(){
+  var unitData = { lessons: [
+    { name:'Lesson 1', subtitle:'Taking Pride in Our Beloved Egypt',
+      vocab:[{en:'heritage',ar:'تراث',ex:'We protect our heritage.'},{en:'monument',ar:'أثر تاريخي / نصب',ex:'The pyramid is a famous monument.'},{en:'civilization',ar:'حضارة',ex:'The Egyptian civilization inspired the world.'},{en:'identity',ar:'هوية',ex:'Restoring sites strengthens national identity.'},{en:'pride',ar:'فخر',ex:'We feel pride in our country.'},{en:'restore',ar:'يُرمِّم',ex:'They plan to restore old temples.'},{en:'preserve',ar:'يحافظ على',ex:'Museums preserve history.'},{en:'museum',ar:'متحف',ex:'The museum displays ancient artifacts.'},{en:'hieroglyphs',ar:'الهيروغليفية',ex:'Hieroglyphs record stories on walls.'},{en:'library',ar:'مكتبة',ex:'The library keeps knowledge safe.'}],
+      reading:['Egypt is a land with a rich past and a bright future.','Ancient monuments show creativity and power.','Museums and libraries keep knowledge alive.','Restoring sites helps our identity and economy.','We feel pride when we learn about our history.','Everyone has a role in protecting our heritage.'],
+      mcq:[{q:'"heritage" means …',choices:['تراث','مدينة','طقس','مهنة'],ok:0},{q:'The Pyramids are famous …',choices:['monuments','foods','instruments','rivers'],ok:0},{q:'Museums … history.',choices:['preserve','forget','destroy','hide'],ok:0},{q:'Restoring old buildings strengthens national …',choices:['identity','weather','distance','hobby'],ok:0},{q:'We feel … in our country.',choices:['pride','noise','danger','sleep'],ok:0},{q:'Merchants met at … to trade.',choices:['crossroads','libraries','classrooms','airports'],ok:0},{q:'Hieroglyphs were used to …',choices:['record stories','cook food','drive cars','wash clothes'],ok:0}] },
+    { name:'Lesson 2', subtitle:'Moments That Shaped Us (Listening)',
+      vocab:[{en:'archaeologist',ar:'عالِم آثار',ex:'An archaeologist studies ancient sites.'},{en:'tourism',ar:'السياحة',ex:'Tourism supports the economy.'},{en:'national identity',ar:'الهوية الوطنية',ex:'Heritage builds national identity.'},{en:'restore',ar:'يُرمِّم',ex:'Workers restore damaged temples.'},{en:'preservation',ar:'حفظ / حماية',ex:'Preservation of sites is essential.'},{en:'awareness',ar:'وعي',ex:'We raise awareness among youth.'},{en:'guide',ar:'مرشد سياحي',ex:'The guide explained the history.'},{en:'site',ar:'موقع أثري',ex:'The temple site is popular.'},{en:'inspire',ar:'يُلهم',ex:'Heritage can inspire young people.'},{en:'economy',ar:'اقتصاد',ex:'Tourism helps the economy.'}],
+      reading:['Experts teach why preserving sites matters.','Tourism brings money and jobs.','Guides share stories at every site.','Awareness among youth keeps culture alive.','Restoration protects buildings from damage.','Our identity grows when we learn our history.'],
+      mcq:[{q:'An archaeologist mainly studies …',choices:['ancient sites','modern apps','weather only','sports'],ok:0},{q:'Tourism helps the …',choices:['economy','homework','silence','wires'],ok:0},{q:'Raising … among youth is important.',choices:['awareness','prices','noise','distance'],ok:0},{q:'A tour … explains places to visitors.',choices:['guide','player','driver','singer'],ok:0},{q:'Damage from … can harm monuments.',choices:['climate change','chocolate','music','games'],ok:0},{q:'A historical … is visited by tourists.',choices:['site','meal','pillow','game'],ok:0},{q:'Heritage can … young people.',choices:['inspire','confuse','hide','silence'],ok:0}] },
+    { name:'Lesson 3', subtitle:'Now Starts Long Ago (Grammar Focus)', extraTab:'Grammar',
+      vocab:[{en:'ancient',ar:'قديم جدًا / قديم',ex:'Ancient people built great cities.'},{en:'farming',ar:'زراعة',ex:'Farming fed families long ago.'},{en:'writing',ar:'الكتابة',ex:'Writing recorded knowledge.'},{en:'invention',ar:'اختراع',ex:'Invention changed the world.'},{en:'communicate',ar:'يتواصل',ex:'We communicate faster today.'},{en:'technology',ar:'تكنولوجيا',ex:'Technology helps scientists.'}],
+      grammar:{summary:'<strong>Past Simple</strong>: finished actions in the past. <em>I visited the museum.</em><br><strong>Past Continuous</strong>: longer past action in progress. <em>I was visiting the museum when it rained.</em><br>Use <strong>while</strong> / <strong>when</strong>.',items:[{q:'I ____ a book when the phone rang.',choices:['was reading','read','reads','was read'],ok:0},{q:'They ____ football last weekend.',choices:['played','were playing','plays','play'],ok:0},{q:'While we ____ dinner, the lights went out.',choices:['were cooking','cooked','cook','was cooking'],ok:0},{q:'She ____ TV when I arrived.',choices:['was watching','watch','watched','watching'],ok:0},{q:'He ____ to school yesterday.',choices:['went','go','was going','going'],ok:0},{q:'We ____ when the teacher entered.',choices:['were talking','talk','talked','was talking'],ok:0},{q:'While I ____ to class, I saw my friend.',choices:['was walking','walk','walked','walking'],ok:0},{q:'Mother ____ lunch when the phone rang.',choices:['was making','make','made','was make'],ok:0}]},
+      reading:['Long ago, people survived by farming and raising animals.','Writing helped humans share ideas across distance.','New inventions improved communication and travel.','We remember the past to build a better future.','Modern technology gives quick access to knowledge.','Learning from history guides our progress today.'],
+      mcq:[{q:'Writing helps people … ideas.',choices:['communicate','forget','hide','close'],ok:0},{q:'Ancient people often used simple …',choices:['tools','stars','games','apps'],ok:0}] },
+    { name:'Lesson 4', subtitle:'Where Pride Begins',
+      vocab:[{en:'values',ar:'قيم',ex:'Values guide our actions.'},{en:'traditions',ar:'تقاليد',ex:'Traditions are passed down.'},{en:'mighty',ar:'عظيم / قوي',ex:'The mighty pyramids amaze visitors.'},{en:'magnificent',ar:'مهيب / رائع',ex:'The temple has magnificent columns.'},{en:'achievements',ar:'إنجازات',ex:'Old achievements inspire us.'},{en:'culture',ar:'ثقافة',ex:'Our culture celebrates knowledge.'}],
+      reading:['True pride grows slowly like a tree with deep roots.','Ancient Egypt led the world in knowledge and art.','Great authors and poets shared ideas with people.','Culture was protected and celebrated in Egypt.','Our values and traditions influence new generations.','We honor the past and build a united future.'],
+      mcq:[{q:'"magnificent" is closest to …',choices:['great','tiny','boring','weak'],ok:0},{q:'Ancient Egypt led the world in …',choices:['knowledge','silence','snow','insects'],ok:0},{q:'Pride grows like a …',choices:['tree','stone','river','car'],ok:0},{q:'Great … shared ideas with people.',choices:['authors','drivers','swimmers','tourists'],ok:0},{q:'Our … influence new generations.',choices:['values','noises','meals','tickets'],ok:0},{q:'The pyramids are … monuments.',choices:['mighty','tiny','lazy','empty'],ok:0},{q:'Culture was … in Egypt.',choices:['protected and celebrated','hidden and ignored','lost and broken','expensive and private'],ok:0}] }
+  ],
+  unitExam:[
+    {q:'Egypt has a rich ____ that we must protect.',choices:['heritage','future','modernity','technology'],ok:0},
+    {q:'The Pyramids are a famous ____ in Egypt.',choices:['monument','object','festival','instrument'],ok:0},
+    {q:'Tutankhamun was an ____ Egyptian king.',choices:['ancient','modern','temporary','recent'],ok:0},
+    {q:'The Nile helped the growth of Egyptian ____.',choices:['civilization','disaster','animal','person'],ok:0},
+    {q:'The museum displayed a rare ____ from ancient times.',choices:['artifact','machine','plant','note'],ok:0},
+    {q:'We should ____ our historical buildings.',choices:['preserve','destroy','ignore','forget'],ok:0},
+    {q:'Our ____ lived in small villages and worked hard to survive.',choices:['ancestors','festival','language','building'],ok:0},
+    {q:'____ is the study of human history through remains.',choices:['Archaeology','Astronomy','Botany','Meteorology'],ok:0},
+    {q:'The Karnak ____ is one of the largest in Egypt.',choices:['temple','food','instrument','festival'],ok:0},
+    {q:'A ____ ruled Egypt thousands of years ago.',choices:['pharaoh','soldier','farmer','priest'],ok:0},
+    {q:'I ____ the museum yesterday.',choices:['visit','visited','was visiting','visiting'],ok:1},
+    {q:'While I ____ in the street, I saw an old friend.',choices:['walk','walked','was walking','walking'],ok:2},
+    {q:'She ____ a book when the phone rang.',choices:['read','was reading','reads','reading'],ok:1},
+    {q:'They ____ football last weekend.',choices:['play','played','playing','was playing'],ok:1},
+    {q:'I ____ when you called me.',choices:['sleep','slept','sleeping','was sleeping'],ok:3},
+    {q:'He ____ TV when his mother came home.',choices:['watch','watched','watching','was watching'],ok:3},
+    {q:'We ____ to Cairo last summer.',choices:['go','went','was going','going'],ok:1},
+    {q:'She ____ dinner when I arrived.',choices:['cook','cooked','cooking','was cooking'],ok:3},
+    {q:'I ____ the pyramids two years ago.',choices:['see','saw','seeing','was seeing'],ok:1},
+    {q:'They ____ when the lights went out.',choices:['dance','danced','dancing','were dancing'],ok:3},
+    {q:'Egyptian ____ is famous all over the world.',choices:['heritage','monument','civilization','artifact'],ok:0},
+    {q:'The Pyramids are an important ____ in Egypt.',choices:['monument','heritage','artifact','merchant'],ok:0},
+    {q:'Ancient ____ developed along the Nile River.',choices:['civilization','pharaoh','artifact','merchant'],ok:0},
+    {q:'The museum displayed a rare ____ from ancient times.',choices:['artifact','heritage','pharaoh','monument'],ok:0},
+    {q:'Tutankhamun was a young ____ who ruled Egypt.',choices:['pharaoh','merchant','artifact','civilization'],ok:0}
+  ] };
+
+  var topTabs = document.getElementById('topTabs');
+  var panels = document.getElementById('panels');
+
+  function init(){
+    topTabs.innerHTML=''; panels.innerHTML='';
+    for(var i=0;i<unitData.lessons.length;i++){
+      (function(idx){
+        var lsn = unitData.lessons[idx];
+        var t = document.createElement('button'); t.className='tab'+(idx===0?' active':''); t.appendChild(document.createTextNode(lsn.name)); t.onclick=function(){ activatePanel(idx); }; topTabs.appendChild(t);
+        var p = document.createElement('div'); p.className='panel'+(idx===0?' show':''); p.innerHTML='<h2>'+lsn.name+' <span style="color:#3a718f">— '+lsn.subtitle+'</span></h2>';
+        var inner = document.createElement('nav'); inner.className='subtabs'; p.appendChild(inner);
+        var subt = ['Vocabulary','Games','Reading','Exam']; if(lsn.extraTab) subt.splice(3,0,lsn.extraTab);
+        for(var s=0;s<subt.length;s++){
+          (function(sidx){
+            var st = document.createElement('button'); st.className='subtab'+(sidx===0?' active':''); st.appendChild(document.createTextNode(subt[sidx])); st.onclick=function(){ activateSub(idx,sidx); }; inner.appendChild(st);
+            var sp = document.createElement('div'); sp.className='panel'+(sidx===0?' show':''); sp.id='sub-'+idx+'-'+sidx;
+            if(subt[sidx]==='Vocabulary') buildVocab(sp, lsn);
+            if(subt[sidx]==='Games') buildGames(sp, lsn);
+            if(subt[sidx]==='Reading') buildReading(sp, lsn);
+            if(subt[sidx]==='Exam') buildLessonExam(sp, lsn, idx);
+            if(subt[sidx]==='Grammar') buildGrammar(sp, lsn.grammar, idx);
+            p.appendChild(sp);
+          })(s);
+        }
+        panels.appendChild(p);
+      })(i);
+    }
+    var ut = document.createElement('button'); ut.className='tab'; ut.appendChild(document.createTextNode('Unit Exam')); ut.onclick=function(){ activatePanel('unit'); }; topTabs.appendChild(ut);
+    var up = document.createElement('div'); up.className='panel'; up.innerHTML='<h2>Unit Exam — 25 MCQs (Vocabulary & Grammar)</h2><div class="progress"><div class="bar" id="unitBar"></div></div><div id="unitExam"></div><div class="actions"><button class="btn primary" onclick="resetUnitExam()">Reset Exam</button><button class="btn good" onclick="showUnitScore()">Show Score</button></div><div id="unitResult" class="result"></div>';
+    panels.appendChild(up);
+    buildUnitExam(document.getElementById('unitExam'), unitData.unitExam);
+  }
+
+  function activatePanel(idx){
+    var i = (typeof idx==='number'? idx : unitData.lessons.length);
+    for(var j=0;j<topTabs.children.length;j++){ topTabs.children[j].classList.remove('active'); }
+    topTabs.children[i].classList.add('active');
+    for(var k=0;k<panels.children.length;k++){ panels.children[k].classList.remove('show'); }
+    panels.children[i].classList.add('show');
+  }
+
+  function activateSub(lessonIndex, subIndex){
+    var section = panels.children[lessonIndex];
+    var nav = section.querySelector('.subtabs');
+    for(var i=0;i<nav.children.length;i++){ nav.children[i].classList.remove('active'); }
+    nav.children[subIndex].classList.add('active');
+    var all = section.querySelectorAll('.panel');
+    for(var k=0;k<all.length;k++){ if(all[k].id && all[k].id.indexOf('sub-'+lessonIndex+'-')===0){ all[k].classList.remove('show'); } }
+    section.querySelector('#sub-'+lessonIndex+'-'+subIndex).classList.add('show');
+  }
+
+  function buildVocab(root, lsn){ var grid = document.createElement('div'); grid.className='grid'; root.appendChild(grid);
+    for(var i=0;i<lsn.vocab.length;i++){ var v = lsn.vocab[i]; var card = document.createElement('div'); card.className='card'; var inner=document.createElement('div'); inner.className='inner'; inner.innerHTML='<div class="word"><div class="en">'+v.en+'</div><div class="ar">'+v.ar+'</div></div><div class="example">Example: '+v.ex+'</div>'; var actions=document.createElement('div'); actions.className='actions'; var b1=document.createElement('button'); b1.className='btn'; b1.appendChild(document.createTextNode('🔊 Word (UK)')); b1.onclick=(function(t){ return function(){ speak(t,0.85); }; })(v.en); var b2=document.createElement('button'); b2.className='btn'; b2.appendChild(document.createTextNode('🔊 Example (UK)')); b2.onclick=(function(t){ return function(){ speak(t,0.85); }; })(v.ex); actions.appendChild(b1); actions.appendChild(b2); inner.appendChild(actions); card.appendChild(inner); grid.appendChild(card); }
+    var drill = document.createElement('div'); drill.className='quiz'; drill.innerHTML='<div class="q">Spelling Drill — type the English word for the Arabic meaning</div>'; var input = document.createElement('input'); input.placeholder='Type the English word here…'; input.style.width='100%'; input.style.padding='10px 14px'; input.style.border='2px solid #d5ebf9'; input.style.borderRadius='12px'; input.autocomplete='off'; drill.appendChild(input); var info = document.createElement('div'); info.style.marginTop='6px'; drill.appendChild(info);
+    var idx = 0; var items = lsn.vocab.slice(); function ask(){ var it = items[idx%items.length]; info.innerHTML = 'Arabic: <strong>'+it.ar+'</strong>'; input.value=''; input.onkeyup=function(e){ if(e.key==='Enter'){ check(); } }; function check(){ var v = input.value.trim().toLowerCase(); if(v===it.en.toLowerCase()){ good(); idx++; confettiBurst(); ask(); } else { bad(); speak(it.en,0.85); } } var btn = document.createElement('div'); btn.className='actions'; var sub = document.createElement('button'); sub.className='btn primary'; sub.appendChild(document.createTextNode('Submit')); sub.onclick=function(){ var v = input.value.trim().toLowerCase(); if(v===it.en.toLowerCase()){ good(); idx++; confettiBurst(); ask(); } else { bad(); speak(it.en,0.85); } }; btn.appendChild(sub); drill.appendChild(btn); }
+    function good(){ playGood(); }
+    function bad(){ playBad(); }
+    ask(); root.appendChild(drill);
+  }
+
+  function buildGames(root, lsn){ var wrap = document.createElement('div'); wrap.innerHTML = '<h3>Match the cards — drag the English word onto its Arabic meaning</h3>'; var area = document.createElement('div'); area.className='drag-area'; var drops = lsn.vocab.slice(0,8);
+    for(var i=0;i<drops.length;i++){ (function(v){ var d = document.createElement('div'); d.className='drop'; d.dataset.target=v.en.toLowerCase(); d.innerHTML='<strong>'+v.ar+'</strong>'; d.ondragover=function(e){ e.preventDefault(); }; d.ondrop=function(e){ var txt = e.dataTransfer.getData('text'); if(txt===d.dataset.target){ d.classList.add('correct'); playGood(); confettiBurst(); } else { d.classList.add('wrong'); playBad(); } }; area.appendChild(d); })(drops[i]); }
+    wrap.appendChild(area);
+    var bank = document.createElement('div'); bank.className='drag-area'; var shuffled = drops.slice().sort(function(){ return Math.random()-0.5; });
+    for(var j=0;j<shuffled.length;j++){ (function(v){ var it = document.createElement('div'); it.className='draggable'; it.appendChild(document.createTextNode(v.en)); it.draggable=true; it.ondragstart=function(e){ e.dataTransfer.setData('text', v.en.toLowerCase()); }; bank.appendChild(it); })(shuffled[j]); }
+    wrap.appendChild(bank); root.appendChild(wrap);
+
+    var qbox = document.createElement('div'); qbox.className='quiz'; qbox.innerHTML='<div class="q">Kahoot‑style — choose the English word for the Arabic meaning</div>'; var list = document.createElement('div'); qbox.appendChild(list); var score = 0; var items = lsn.vocab.slice(0,8);
+    var index = 0; function next(){ var it = items[index]; if(!it){ var s = document.createElement('div'); s.className='result'; s.appendChild(document.createTextNode('Score: '+score+'/'+items.length)); qbox.appendChild(s); return; } list.innerHTML=''; var q = document.createElement('div'); q.appendChild(document.createTextNode('Arabic meaning: '+it.ar)); list.appendChild(q); var choices = document.createElement('div'); choices.className='choices'; var opts = [it.en]; var others = lsn.vocab.filter(function(v){ return v.en!==it.en; }).slice(0,3); for(var k=0;k<others.length;k++){ opts.push(others[k].en); } opts.sort(function(){ return Math.random()-0.5; }); for(var m=0;m<opts.length;m++){ (function(opt){ var c = document.createElement('div'); c.className='choice'; c.appendChild(document.createTextNode(opt)); c.onclick=function(){ if(opt===it.en){ c.classList.add('ok'); score++; playGood(); confettiBurst(); setTimeout(function(){ index++; next(); }, 600); } else { c.classList.add('no'); playBad(); var ch = choices.children; for(var x=0;x<ch.length;x++){ if(ch[x].textContent===it.en) ch[x].classList.add('ok'); } setTimeout(function(){ index++; next(); }, 900); } }; choices.appendChild(c); })(opts[m]); }
+      list.appendChild(choices);
+    }
+    next(); root.appendChild(qbox);
+  }
+
+  function buildReading(root, lsn){ var box = document.createElement('div'); box.className='quiz'; box.innerHTML='<h3>Six short sentences — tap ▶ to hear a slow British voice</h3>'; for(var i=0;i<lsn.reading.length;i++){ (function(s){ var row = document.createElement('div'); row.style.display='flex'; row.style.alignItems='center'; row.style.gap='8px'; row.style.margin='6px 0'; var btn = document.createElement('button'); btn.className='btn'; btn.appendChild(document.createTextNode('▶')); btn.onclick=function(){ speak(s,0.85); }; var txt = document.createElement('div'); txt.appendChild(document.createTextNode(s)); row.appendChild(btn); row.appendChild(txt); box.appendChild(row); })(lsn.reading[i]); } root.appendChild(box);
+    var quiz = document.createElement('div'); quiz.className='quiz'; quiz.innerHTML='<div class="q">Choose the correct answer</div>'; for(var j=0;j<lsn.mcq.length;j++){ (function(item){ var wrap = document.createElement('div'); wrap.style.marginTop='8px'; var q = document.createElement('div'); q.appendChild(document.createTextNode(item.q)); wrap.appendChild(q); var choices = document.createElement('div'); choices.className='choices'; for(var ci=0;ci<item.choices.length;ci++){ (function(ci){ var c = document.createElement('div'); c.className='choice'; c.appendChild(document.createTextNode(item.choices[ci])); c.onclick=function(){ if(ci===item.ok){ c.classList.add('ok'); playGood(); confettiBurst(); } else { c.classList.add('no'); playBad(); var ch = choices.children; for(var x=0;x<ch.length;x++){ if(x===item.ok) ch[x].classList.add('ok'); } } for(var z=0;z<choices.children.length;z++){ choices.children[z].style.pointerEvents='none'; } }; choices.appendChild(c); })(ci); } wrap.appendChild(choices); quiz.appendChild(wrap); })(lsn.mcq[j]); } root.appendChild(quiz); }
+
+  function buildLessonExam(root, lsn, lessonIndex){ var title = document.createElement('div'); title.innerHTML='<h3>Interactive Lesson Exam</h3>'; root.appendChild(title); var progress = document.createElement('div'); progress.className='progress'; progress.innerHTML='<div class="bar"></div>'; root.appendChild(progress); var bar = progress.querySelector('.bar'); var limit = Math.max(7, lsn.mcq.length); var items = lsn.mcq.slice(0, limit); var done = 0, score = 0; for(var i=0;i<items.length;i++){ (function(item){ addExamItem(root, item, null, true, function(correct){ done++; if(correct) score++; bar.style.width = Math.round(done/items.length*100)+'%'; }); })(items[i]); }
+    var controls = document.createElement('div'); controls.className='actions'; controls.innerHTML='<button class="btn primary" onclick="location.reload()">Reset</button> <button class="btn good" id="showLessonScore'+lessonIndex+'">Show Score</button>'; root.appendChild(controls); var result = document.createElement('div'); result.className='result'; root.appendChild(result); document.getElementById('showLessonScore'+lessonIndex).onclick=function(){ var pct = Math.round((score/items.length)*100); result.style.color=pct>=60?'var(--ok)':'var(--bad)'; result.textContent='Your Lesson Score: '+score+'/'+items.length+' ('+pct+'%)'; };
+  }
+
+  function buildGrammar(root, g, idx){ var box = document.createElement('div'); box.className='quiz'; box.innerHTML='<h3>Grammar — Past Simple vs Past Continuous</h3><div>'+g.summary+'</div>'; root.appendChild(box); var list = document.createElement('div'); list.className='quiz'; list.innerHTML='<div class="q">Grammar Practice</div>'; for(var i=0;i<g.items.length;i++){ addExamItem(list, g.items[i], null, true); } root.appendChild(list); }
+
+  var unitExamState = []; function buildUnitExam(root, items){ unitExamState = items.map(function(){ return {done:false, correct:false}; }); root.innerHTML=''; var done = 0; var bar = document.getElementById('unitBar'); bar.style.width='0%'; for(var i=0;i<items.length;i++){ (function(item,i){ addExamItem(root, item, i, true, function(correct){ done++; unitExamState[i]={done:true,correct:!!correct}; bar.style.width = Math.round(done/items.length*100)+'%'; }); })(items[i], i); } }
+  function resetUnitExam(){ buildUnitExam(document.getElementById('unitExam'), unitData.unitExam); document.getElementById('unitResult').textContent=''; }
+  function showUnitScore(){ var total=unitExamState.length; var correct=0; for(var i=0;i<unitExamState.length;i++){ if(unitExamState[i].correct) correct++; } var pct = Math.round((correct/total)*100); var box = document.getElementById('unitResult'); box.style.color = pct>=60?'var(--ok)':'var(--bad)'; box.textContent = 'Unit Score: '+correct+'/'+total+' ('+pct+'%)'; }
+
+  function addExamItem(root, item, index, showCorrectOnWrong, onAnswered){ var wrap = document.createElement('div'); wrap.className='quiz'; var q = document.createElement('div'); q.className='q'; q.appendChild(document.createTextNode(item.q)); wrap.appendChild(q); var choices = document.createElement('div'); choices.className='choices'; for(var ci=0;ci<item.choices.length;ci++){ (function(ci){ var c = document.createElement('div'); c.className='choice'; c.appendChild(document.createTextNode(item.choices[ci])); c.onclick=function(){ var correct=(ci===item.ok); if(correct){ c.classList.add('ok'); playGood(); confettiBurst(); } else { c.classList.add('no'); playBad(); if(showCorrectOnWrong){ var ch = choices.children; for(var x=0;x<ch.length;x++){ if(x===item.ok) ch[x].classList.add('ok'); } } } for(var z=0;z<choices.children.length;z++){ choices.children[z].style.pointerEvents='none'; } if(onAnswered) onAnswered(correct); }; choices.appendChild(c); })(ci); } wrap.appendChild(choices); root.appendChild(wrap); }
+
+  function confettiBurst(){ try{ var canvas = document.getElementById('confetti'); var ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight; var pieces = []; for(var i=0;i<42;i++){ pieces.push({x:Math.random()*canvas.width, y:-10, c:['#5cc9f5','#77ed91','#f7b267','#c7a0f9'][i%4], s:2+Math.random()*4, vy:2+Math.random()*3}); }
+    var t=0; function anim(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(var i=0;i<pieces.length;i++){ var p = pieces[i]; p.y+=p.vy; ctx.fillStyle=p.c; ctx.fillRect(p.x,p.y,p.s,p.s); } if(t++<45) requestAnimationFrame(anim); else ctx.clearRect(0,0,canvas.width,canvas.height); } anim(); }catch(e){} }
+  var audioCtx=null; function ensureAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+  function beep(freq,time){ ensureAudio(); var o=audioCtx.createOscillator(); var g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.frequency.value=freq; o.type='sine'; g.gain.setValueAtTime(0.001,audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.25,audioCtx.currentTime+0.02); o.start(); setTimeout(function(){ g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+time-0.02); o.stop(audioCtx.currentTime+time); },0); }
+  function playGood(){ beep(880,0.22); setTimeout(function(){ beep(1320,0.22); },120); }
+  function playBad(){ beep(220,0.35); }
+
+  function chooseUKVoice(){ var list = window.speechSynthesis.getVoices(); var preferred = ['Google UK English Female','Microsoft Sonia - English (United Kingdom)','Microsoft Hazel - English (Great Britain)','Microsoft Susan - English (United Kingdom)']; var v=null; for(var i=0;i<list.length;i++){ if(preferred.indexOf(list[i].name)!==-1){ v=list[i]; break; } } if(!v){ for(var j=0;j<list.length;j++){ if(/en-GB/i.test(list[j].lang)){ v=list[j]; break; } } } return v || list[0]; }
+  var ukVoice=null; window.speechSynthesis.onvoiceschanged=function(){ ukVoice = chooseUKVoice(); };
+  function speak(text, rate){ try{ if(!('speechSynthesis' in window)) return; if(!ukVoice) ukVoice = chooseUKVoice(); var u = new SpeechSynthesisUtterance(text); u.voice = ukVoice; u.rate = rate || 0.85; u.pitch = 1.0; window.speechSynthesis.speak(u);}catch(e){} }
+
+  if(document.readyState==='complete' || document.readyState==='interactive'){ init(); } else { document.addEventListener('DOMContentLoaded', init); }
+})();
+</script>
+</body>
+</html>
